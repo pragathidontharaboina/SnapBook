@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Dashboard</h1>
+<h2>Booking requests</h2>
+<ul>
+    {% for b in bookings %}
+    <li>
+        {{ b.client.username }} requested {{ b.date }} {{ b.start_time }} - {{ b.end_time }} : {{ b.status }}
+        {% if b.status == 'requested' %}
+            <form method="post" action="/bookings/{{ b.id }}/action/">
+                {% csrf_token %}
+                <button name="action" value="accept">Accept</button>
+                <button name="action" value="reject">Reject</button>
+            </form>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>No bookings.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

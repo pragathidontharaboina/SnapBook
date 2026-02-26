@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Photographers</h1>
+<ul>
+    {% for p in profiles %}
+        <li>
+            <a href="{% url 'photographers:detail' p.pk %}">{{ p.user.get_full_name|default:p.user.username }}</a>
+            - {{ p.location }} - ${{ p.hourly_rate }} / hr
+        </li>
+    {% empty %}
+        <li>No photographers yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

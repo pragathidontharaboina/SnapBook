@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photographers Booking System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<nav>
+    <a href="/">Home</a> |
+    {% if user.is_authenticated %}
+        <span>Welcome, {{ user.username }}</span> |
+        <a href="/accounts/logout/">Logout</a>
+    {% else %}
+        <a href="/accounts/login/">Login</a> |
+        <a href="/accounts/register/">Register</a>
+    {% endif %}
+</nav>
+
+<hr>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

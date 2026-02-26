@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Bookings</h1>
+<ul>
+    {% for b in bookings %}
+    <li>{{ b.photographer.user.username }} on {{ b.date }} {{ b.start_time }} - {{ b.end_time }} : {{ b.status }}</li>
+    {% empty %}
+    <li>No bookings.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

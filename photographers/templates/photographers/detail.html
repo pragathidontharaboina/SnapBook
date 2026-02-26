@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ profile.user.get_full_name|default:profile.user.username }}</h1>
+<p>{{ profile.bio }}</p>
+<p>Location: {{ profile.location }}</p>
+<p>Rate: ${{ profile.hourly_rate }}</p>
+
+<h2>Available slots</h2>
+<ul>
+    {% for a in availabilities %}
+    <li>{{ a.date }}: {{ a.start_time }} - {{ a.end_time }}
+        {% if user.is_authenticated %}
+            <form method="post" action="/bookings/create/">
+                {% csrf_token %}
+                <input type="hidden" name="availability_id" value="{{ a.id }}">
+                <button type="submit">Request booking</button>
+            </form>
+        {% else %}
+            <a href="/accounts/login/">Login to book</a>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>No availability.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
